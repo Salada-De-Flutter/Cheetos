@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ficha do Jogador</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #18191c; color: #fff; }
+    .container { max-width: 500px; margin: 40px auto; background: #23272a; padding: 32px; border-radius: 12px; box-shadow: 0 2px 8px #0008; }
+    h2 { text-align: center; }
+    label { display: block; margin-top: 16px; }
+    input, select { width: 100%; padding: 8px; margin-top: 4px; border-radius: 4px; border: none; background: #2c2f33; color: #fff; }
+    button { margin-top: 24px; width: 100%; padding: 12px; background: #7289da; color: #fff; border: none; border-radius: 6px; font-size: 1.1em; cursor: pointer; }
+    button:hover { background: #5b6eae; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Preencha sua Ficha</h2>
+    <form id="fichaForm">
+  <input type="hidden" name="discord_id" id="discord_id">
+  <label>Nome:<input type="text" name="nome" required></label>
+      <label>Idade:<input type="number" name="idade" min="0" required></label>
+      <label>Altura:<input type="text" name="altura" placeholder="Ex: 1,75m" required></label>
+      <label>Peso:<input type="text" name="peso" placeholder="Ex: 70kg" required></label>
+      <label>Raça:<input type="text" name="raca" required></label>
+      <label>Tipo sanguíneo:<input type="text" name="tipo_sanguineo" required></label>
+      <label>Level:<input type="number" name="level" min="1" value="1" required></label>
+      <label>Pontos:<input type="number" name="pontos" min="0" value="0" required></label>
+      <label>Velocidade:<input type="number" name="velocidade" min="0" value="0" required></label>
+      <label>Mentalidade:<input type="number" name="mentalidade" min="0" value="0" required></label>
+      <label>Força:<input type="number" name="forca" min="0" value="0" required></label>
+      <label>Determinação:<input type="number" name="determinacao" min="0" value="0" required></label>
+      <label>Atributo único:<input type="text" name="atributo_unico" required></label>
+      <button type="submit">Salvar Ficha</button>
+    </form>
+    <div id="msg" style="margin-top:20px;"></div>
+  </div>
+  <script>
+    // Captura o parâmetro user da URL
+    function getUserIdFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('user') || '';
+    }
+
+    // Preenche o campo hidden com o discord_id
+    document.getElementById('discord_id').value = getUserIdFromUrl();
+
+    document.getElementById('fichaForm').onsubmit = function(e) {
+      e.preventDefault();
+      const discordId = document.getElementById('discord_id').value;
+      if (!discordId) {
+        document.getElementById('msg').innerText = 'ID do usuário não encontrado na URL!';
+        return;
+      }
+      document.getElementById('msg').innerText = 'Ficha enviada para o usuário: ' + discordId + ' (Aqui você pode integrar com Supabase)';
+      // Aqui você pode adicionar integração com Supabase usando JS, incluindo o discordId
+    };
+  </script>
+</body>
+</html>
